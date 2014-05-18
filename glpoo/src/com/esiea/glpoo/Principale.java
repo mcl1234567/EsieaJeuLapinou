@@ -15,6 +15,7 @@ public class Principale {
 		Vue jf = new Vue();
 		jf.setVisible(true);
 
+		// Joue une partie et affiche le nouveau terrain
 		jf.calculate();
 
 		//LOGGER.debug("Main : FIN");

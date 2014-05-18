@@ -14,8 +14,10 @@ public class ModeleDynamique extends AbstractTableModel {
 	final private static String LAPINS_FILE_NAME = "src/main/resources/chiens.csv";			// A MODIFIER
 	private LapinService lapinService = LapinService.getInstance();
 
-	void ModeleDynamique() 
+	public ModeleDynamique() 
 	{
+		super();
+
 		lapins = lapinService.findAllLapins(LAPINS_FILE_NAME);
 		entetes = new String[] { "Rang", "Nom lapin", "Score" };
 	}

@@ -33,6 +33,8 @@ public class Vue extends JFrame {
 	private static final Logger LOGGER = Logger.getLogger(Vue.class);
 	// Test d'une image
 	public static final String URL_IMAGE = "resources/allemagne.jpg";
+	
+	ModeleDynamique modele;
 
 	// Panel de la home (menu, accueil)
 	final JPanel startPanel;
@@ -56,7 +58,6 @@ public class Vue extends JFrame {
 
 	// pas utile
 	public ArrayList<JLabel> labels;
-
 	public JLabel labelTest; // test
 
 	public Vue() 
@@ -88,19 +89,11 @@ public class Vue extends JFrame {
 		jeuPanel.setVisible(true);
 		this.add(jeuPanel);
 		
-		// Config. bouton -> renvoie vers les résultats
-		JButton boutonResultats = new JButton();
-		boutonResultats.setBounds(10, 10, 100, 100);
-		boutonResultats.setVisible(true); // utile?
-		jeuPanel.add(boutonResultats);
-		boutonResultats.addActionListener(new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("\nAffichage des résultats\n----------------------\n");
-				jeuPanel.setVisible(false);
-				resPanel.setVisible(true);				
-			}
-		});
+		// columns : y ; rows : x
+		int x = 3, y = 3;
+
+		// affichage initial
+		generationTerrain(x, y, 1);
 
 		// Ajouts d'éléments graphiques à la frame par défaut
 		//getContentPane().add(start);
@@ -111,7 +104,7 @@ public class Vue extends JFrame {
 		 * String[][] cases = {{"1", "0"}, {"0", "2"}};
 		int nbColonnes = cases[0].length;
 		int nbLignes = cases.length;
-		
+
 		creationLegende(nbColonnes, nbLignes);
 
 		tableau = new JTable(cases, cases);
@@ -131,9 +124,6 @@ public class Vue extends JFrame {
 	{
 		// columns : y ; rows : x
 		int x = 3, y = 3;
-
-		// affichage initial
-		generationTerrain(x, y, 1);
 
 		// calculs
 		deplacementLapins(x, y, 2);
@@ -178,14 +168,12 @@ public class Vue extends JFrame {
 		}
 	}
 
-	//
+	// Génération du terrain de jeu
 	public void generationTerrain(int x, int y, int indice) 
 	{
 		System.out.println("generationTerrain()\n");
 		jeuPanel.removeAll();
 		jeuPanel.setVisible(false);
-		//labelTest.setBounds(50, 0, 100, 100);
-		//jeuPanel.add(labelTest);
 
 		int base_x = 100;
 		int base_y = 100;
@@ -198,6 +186,20 @@ public class Vue extends JFrame {
 		String type4 = "lapin";
 		int legendePosition = 20;
 		Font font = new Font("Arial", Font.BOLD, 20);
+
+		// Config. bouton resultats -> renvoie vers les résultats de la partie ( si elle est terminee )
+		JButton boutonResultats = new JButton("Resultats");
+		boutonResultats.setBounds(100, 10, 100, 20);
+		boutonResultats.setVisible(true); // utile?
+		jeuPanel.add(boutonResultats);
+		boutonResultats.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("\nAffichage des résultats\n----------------------\n");
+				jeuPanel.setVisible(false);
+				resPanel.setVisible(true);				
+			}
+		});
 
 		// Analyse du jardin // Pour toutes les colonnes..
 		for (int i = 0; i < y; i++) {
