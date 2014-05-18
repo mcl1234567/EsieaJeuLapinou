@@ -20,6 +20,7 @@ public abstract class AbstractCsvLapinDao implements CsvLapinDao {
 	public void init(File file) 
 	{
 		//LOGGER.debug("init");
+
 		this.file = file;
 
 		reloadLapins();
@@ -30,9 +31,8 @@ public abstract class AbstractCsvLapinDao implements CsvLapinDao {
 	{
 		//LOGGER.debug("findAllChiens");
 
-		if (lapins == null) {
+		if (lapins == null) 
 			throw new IllegalStateException("La liste n'a pas encore ete initialisee...");
-		}
 
 		return lapins;
 	}
@@ -40,13 +40,11 @@ public abstract class AbstractCsvLapinDao implements CsvLapinDao {
 	@Override
 	public Lapin findLapinByNom(final String nom) 
 	{
-		if (nom == null || nom.isEmpty()) {
+		if (nom == null || nom.isEmpty()) 
 			throw new IllegalArgumentException("Le nom ne peut pas etre vide.");
-		}
 
-		if (lapins == null) {
+		if (lapins == null) 
 			throw new IllegalStateException("La liste n'a pas encore ete initialisee...");
-		}
 
 		return lapinMapByNom.get(nom);
 	}

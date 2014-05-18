@@ -15,6 +15,7 @@ public class LapinService {
 	private LapinService() 
 	{
 		//LOGGER.debug("Constructeur");
+
 		csvLapin = new EngineCsvLapinDao();
 	}
 
@@ -24,9 +25,8 @@ public class LapinService {
 	 */
 	public static synchronized LapinService getInstance() 
 	{
-		if (instance == null) {
+		if (instance == null) 
 			instance = new LapinService();
-		}
 
 		return instance;
 	}
