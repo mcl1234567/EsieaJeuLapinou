@@ -20,6 +20,7 @@ public abstract class AbstractCsvLapinDao implements CsvLapinDao {
 	public void init(File file) 
 	{
 		//LOGGER.debug("init");
+		System.out.println("init");
 
 		this.file = file;
 

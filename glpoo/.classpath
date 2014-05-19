@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="resources"/>
+	<classpathentry kind="src" path="archive"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/junit/junit/4.8.2/junit-4.8.2.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/log4j/log4j/1.2.13/log4j-1.2.13.jar"/>

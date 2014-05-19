@@ -22,8 +22,7 @@ import org.apache.log4j.Logger;
  * Créer le menu d'accueil.
  * Créer le tableau d'affichage des scores pour chaque lapin.
  * 
- * @author morvan
- *
+ * @author Morvan Calmel
  */
 
 public class Vue extends JFrame {
@@ -33,8 +32,9 @@ public class Vue extends JFrame {
 	private static final Logger LOGGER = Logger.getLogger(Vue.class);
 	// Test d'une image
 	public static final String URL_IMAGE = "resources/allemagne.jpg";
-	
-	ModeleDynamique modele;
+
+	private JTable tableau;
+	private ModeleDynamique modele;
 
 	// Panel de la home (menu, accueil)
 	final JPanel startPanel;
@@ -50,9 +50,9 @@ public class Vue extends JFrame {
 	public String[] nomLapins = {"Bunny1", "Bunny2"};
 	public String[] orientationLapins = {"N", "E"};
 	public String[] sequenceLapins = {"AADADAGA", "AADADAGA"};
-	// ligne - colonne
+	// ligne - colonne de (1 à n)
 	public String[] coordonneesLapins = {"1-3", "2-1"};
-	public int[] nbCarottesMangees;
+	public int[] nbCarottesMangees;  // utilisé?
 
 	public ArrayList<Integer> memorizedSequences;
 
@@ -67,6 +67,8 @@ public class Vue extends JFrame {
 		
 		labels = new ArrayList<JLabel>();
 		memorizedSequences = new ArrayList<Integer>();
+		modele = new ModeleDynamique();
+		tableau = new JTable(modele);
 
 		setTitle("Lapinou");
 		this.setVisible(true);

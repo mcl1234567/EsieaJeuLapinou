@@ -1,1 +1,4 @@
-L 1-1 E AADADAGA Bunny
+# lapin(L) position initiale(colonne-ligne) orientation initiale(N|E|S|W) deplacements(A|G|D) nom 
+
+L 1-3 N AADADAGA Bunny
+L 2-1 E AADADAGA Bunny2

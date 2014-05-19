@@ -49,39 +49,42 @@ public class EngineCsvLapinDao extends AbstractCsvLapinDao {
 	protected void reloadLapins() 
 	{
 		//LOGGER.debug("reloadLapins");
+		System.out.println("reloadLapins");
 
 		try {
 			final CsvEngine engine = new CsvEngine(SimpleLapin.class);
 			setEngineFactory(engine);
 
 			final FileInputStream fis = new FileInputStream(file);
+			System.out.println(String.valueOf(fis));
 
 			final Result<SimpleLapin> resultat = engine.parseInputStream(fis, SimpleLapin.class);
 
 			final List<? extends Lapin> bunnies = resultat.getObjects();
+			for (int i = 0; i < bunnies.size(); i++) {
+				System.out.println(bunnies.get(i).getNom());
+			}
 			lapins = (List<Lapin>) bunnies;
 			lapinMapByNom = new HashMap<String, Lapin>(lapins.size());
 			for (Lapin lapin : lapins) {
 				//LOGGER.debug("[lapin] " + lapin);
+				System.out.println("[lapin] " + lapin);
 				lapinMapByNom.put(lapin.getNom(), lapin);
 			}
 
 			List<Error> errors = resultat.getErrors();
 			//LOGGER.debug(errors);
+			System.out.println(errors);
 
 			entetes = engine.getColumnNames(SimpleLapin.class);
 
 			//LOGGER.debug("[entetes] " + entetes);
+			System.out.println("[entetes] " + entetes);
 
 		} catch (Exception e) {
 			//LOGGER.error("Une erreur s'est produite...", e);
+			System.out.println("Une erreur s'est produite...");
 		}
 	}
-
-	@Override
-	/**
-	 * Return null
-	 */
-	public Lapin findLapinByNom(String nom) { return null; }
 
 }

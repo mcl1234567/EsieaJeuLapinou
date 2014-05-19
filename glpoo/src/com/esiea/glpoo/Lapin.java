@@ -9,5 +9,10 @@ public interface Lapin extends Serializable {
 	// Note : Les methodes d'une interfaces sont automatiquement "public".
 
 	String getNom();
-	int getScore();
+	String getOrientation();
+	String getSequences();
+	String getPosition();
+
+	int getScore();	// Utile ?
+	
 }

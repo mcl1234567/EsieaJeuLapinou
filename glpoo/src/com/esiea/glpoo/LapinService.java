@@ -8,10 +8,13 @@ import org.apache.log4j.Logger;
 public class LapinService {
 
 	private static final Logger LOGGER = Logger.getLogger(LapinService.class);
+
 	private CsvLapinDao csvLapin;
 	private static LapinService instance;	// Instance de la classe, pour le singleton.
 
-	// Constructeur privé.
+	/**
+	 *  Constructeur privé.
+	 */
 	private LapinService() 
 	{
 		//LOGGER.debug("Constructeur");
