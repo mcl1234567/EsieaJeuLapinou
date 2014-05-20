@@ -13,7 +13,7 @@ public class LapinService {
 	private static LapinService instance;	// Instance de la classe, pour le singleton.
 
 	/**
-	 *  Constructeur privé.
+	 * Constructeur privé.
 	 */
 	private LapinService() 
 	{
@@ -22,9 +22,9 @@ public class LapinService {
 		csvLapin = new EngineCsvLapinDao();
 	}
 
-	/**
+	/** 
 	 * Singleton classique, synchro, avec creation sur demande.
-	 * @return
+	 * @return ?
 	 */
 	public static synchronized LapinService getInstance() 
 	{
@@ -34,6 +34,11 @@ public class LapinService {
 		return instance;
 	}
 	
+	/**
+	 * Permet de récupérer tous les lapins
+	 * @param fileName
+	 * @return List<Lapin>
+	 */
 	public List<Lapin> findAllLapins(final String fileName) 
 	{
 		final File file = new File(fileName);

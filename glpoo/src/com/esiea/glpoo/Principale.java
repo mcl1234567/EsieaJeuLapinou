@@ -1,12 +1,15 @@
 package com.esiea.glpoo;
 
-import javax.swing.JFrame;
-
 import org.apache.log4j.Logger;
 
 public class Principale {
+
 	private static final Logger LOGGER = Logger.getLogger(Principale.class);
 
+	/**
+	 * Main thread
+	 * @param args
+	 */
 	public static void main(String[] args) 
 	{
 		//LOGGER.debug("Main : Debut");
@@ -19,4 +22,5 @@ public class Principale {
 
 		//LOGGER.debug("Main : FIN");
 	}
+
 }

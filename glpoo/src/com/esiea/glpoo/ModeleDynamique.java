@@ -14,21 +14,53 @@ public class ModeleDynamique extends AbstractTableModel {
 	final private static String LAPINS_FILE_NAME = "resources/lapin-1.csv";
 	private LapinService lapinService = LapinService.getInstance();
 
+	/** 
+	 * Constructeur
+	 */
 	public ModeleDynamique() 
 	{
 		super();
 
 		lapins = lapinService.findAllLapins(LAPINS_FILE_NAME);
+		// Entêtes du tableau d'affichage des réusltats
 		entetes = new String[] { "nom", "position", "orientation", "sequences", "score" };
 	}
 
+	/**
+	 * Ajout d'un lapin
+	 * @param lapin
+	 */
+	public void ajouterLapin(final Lapin lapin) 
+	{
+		//LOGGER.debug("ajouterLapin");
+
+		lapins.add(lapin);
+
+		final int position = lapins.size() - 1;
+		fireTableRowsInserted(position, position);
+	}
+
+	/**
+	 * Suppression d'un lapin
+	 * @param rowIndex
+	 */
+	public void supprimerLapin(final int rowIndex) 
+	{
+		//LOGGER.debug("supprimerLapin");
+
+		lapins.remove(rowIndex);
+		fireTableRowsDeleted(rowIndex, rowIndex);
+	}
+	
+	/**
+	 * Getters
+	 */
 	@Override
 	public String getColumnName(int columnIndex) { return entetes[columnIndex]; }
 	@Override
 	public int getRowCount() { return lapins.size(); }
 	@Override
 	public int getColumnCount() { return entetes.length; }
-
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) 
 	{
@@ -57,24 +89,6 @@ public class ModeleDynamique extends AbstractTableModel {
 				// return Double.class;
 			default: return Object.class;
 		}
-	}
-
-	public void ajouterLapin(final Lapin lapin) 
-	{
-		//LOGGER.debug("ajouterLapin");
-
-		lapins.add(lapin);
-
-		final int position = lapins.size() - 1;
-		fireTableRowsInserted(position, position);
-	}
-
-	public void supprimerLapin(final int rowIndex) 
-	{
-		//LOGGER.debug("supprimerLapin");
-
-		lapins.remove(rowIndex);
-		fireTableRowsDeleted(rowIndex, rowIndex);
 	}
 
 }

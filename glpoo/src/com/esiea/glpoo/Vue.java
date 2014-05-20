@@ -21,50 +21,53 @@ import org.apache.log4j.Logger;
  * Lorsqu'un lapin rencontre un autre lapin il faut gérer la fin des séquences du lapin en pause avec la mémorisation codée.
  * Créer le menu d'accueil.
  * Créer le tableau d'affichage des scores pour chaque lapin.
- * 
- * @author Morvan Calmel
  */
 
 public class Vue extends JFrame {
 
+	/**
+	 * Attributs
+	 */
 	private static final int WIDTH_WINDOWS = 800;
 	private static final int HEIGHT_WINDOWS = 650;
 	private static final Logger LOGGER = Logger.getLogger(Vue.class);
-	// Test d'une image
-	public static final String URL_IMAGE = "resources/allemagne.jpg";
+	public static final String URL_IMAGE = "resources/allemagne.jpg";		// Test d'une image
 
 	private JTable tableau;
 	private ModeleDynamique modele;
 
-	// Panel de la home (menu, accueil)
-	final JPanel startPanel;
-	// Panel du jeu
-	final JPanel jeuPanel;
-	// Panel des résultats
-	final JPanel resPanel;
+	/**
+	 * Panels
+	 */
+	final JPanel startPanel;		// Panel home (menu, accueil)
+	final JPanel jeuPanel;			// Panel du jeu
+	final JPanel resPanel;			// Panel des résultats
 
-	// Tests statiques
-	//final JTable tableau;
-	// Placement d'un chiffre avant pour pouvoir récupérer génériquement le nombre (1, 2, ..) et le type ( rocher, ..)
+	//final JTable tableau;			// Tests statiques
+	/**
+	 *  Placement d'un chiffre avant pour pouvoir récupérer génériquement le nombre (1, 2, ..) et le type ( rocher, ..)
+	 */
 	public String[][] jardin = {{"1 carotte", "1 rocher", "1 lapin"}, {"1 lapin", "1 rocher", ""}, {"", "", "2 carottes"}};
 	public String[] nomLapins = {"Bunny1", "Bunny2"};
 	public String[] orientationLapins = {"N", "E"};
 	public String[] sequenceLapins = {"AADADAGA", "AADADAGA"};
-	// ligne - colonne de (1 à n)
-	public String[] coordonneesLapins = {"1-3", "2-1"};
-	public int[] nbCarottesMangees;  // utilisé?
+	public String[] coordonneesLapins = {"1-3", "2-1"};			// ligne - colonne de (1 à n)
+	public int[] nbCarottesMangees;  							// utilisé?
 
 	public ArrayList<Integer> memorizedSequences;
 
-	// pas utile
+	// pas utilisé
 	public ArrayList<JLabel> labels;
 	public JLabel labelTest; // test
 
+	/**
+	 * Constructeur des différents éléments graphiques
+	 */
 	public Vue() 
 	{
 		super();
 		//LOGGER.debug("Vue constructeur");
-		
+
 		labels = new ArrayList<JLabel>();
 		memorizedSequences = new ArrayList<Integer>();
 		modele = new ModeleDynamique();
@@ -75,12 +78,12 @@ public class Vue extends JFrame {
 		setPreferredSize(new Dimension(WIDTH_WINDOWS, HEIGHT_WINDOWS));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-	// 2 pages ( home, jeu de lapins )
+	// 2 panels ( home, jeu de lapins )
 		startPanel = new JPanel();
 		jeuPanel = new JPanel();
 		resPanel = new JPanel();
 
-	// Init. des panels :
+	// Initialisation des panels :
 		// Config. du panel start
 		startPanel.setLayout(null);
 		startPanel.setVisible(false);
@@ -90,11 +93,11 @@ public class Vue extends JFrame {
 		jeuPanel.setLayout(null);
 		jeuPanel.setVisible(true);
 		this.add(jeuPanel);
-		
+
 		// columns : y ; rows : x
 		int x = 3, y = 3;
 
-		// affichage initial
+		// Affichage initial
 		generationTerrain(x, y, 1);
 
 		// Ajouts d'éléments graphiques à la frame par défaut
@@ -120,8 +123,11 @@ public class Vue extends JFrame {
 
 		pack();
 	}
-	
-	// Après initialisation, on calcul
+
+	/**
+	 *  Après initialisation, on calcule..
+	 *  Lancement des fonctions
+	 */
 	public void calculate() 
 	{
 		// columns : y ; rows : x
@@ -135,13 +141,16 @@ public class Vue extends JFrame {
 
 		// affichage final
 		generationTerrain(x, y, 3);
-		
-		/* generationResultats(); */
 
-		
+		/* generationResultats(); */
 	}
 
-	// Non utilisé
+	/**
+	 *  Permet de créer une légende en ligne et colonne
+	 * @param nbColonnes
+	 * @param nbLignes
+	 * @return String[]
+	 */
 	public String[] creationLegende(int nbColonnes, int nbLignes) 
 	{	
 		String[] colonnes = null;
@@ -151,17 +160,21 @@ public class Vue extends JFrame {
 			int val = i + 1;
 			colonnes[i] = String.valueOf(val);		
 		}
+
 		for (int i = 0; i < nbLignes; i++) {
 			int val = i + 1;
 			lignes[i] = String.valueOf(val);		
 		}
+
 		return colonnes;
 	}
 
-	// Permet de faire des tests de la matrice jardin contenant tous les éléments (affichage console)
+	/**
+	 * Permet de faire des tests de la matrice jardin contenant tous les éléments (affichage console)
+	 */
 	public void launchTest() 
 	{
-		System.out.println("Tests calculs\n");
+		System.out.println("Vue - launchTests\n");
 		for (int i = 0; i < jardin.length; i++) {
 			for (int j = 0; j < jardin[i].length; j++) {
 				System.out.println("( " + String.valueOf(i) + " - " + String.valueOf(j) + " ) : " + jardin[i][j]);				
@@ -170,10 +183,15 @@ public class Vue extends JFrame {
 		}
 	}
 
-	// Génération du terrain de jeu
+	/**
+	 * Génération du terrain de jeu
+	 * @param x
+	 * @param y
+	 * @param indice
+	 */
 	public void generationTerrain(int x, int y, int indice) 
 	{
-		System.out.println("generationTerrain()\n");
+		System.out.println("Vue - generationTerrain()\n");
 		jeuPanel.removeAll();
 		jeuPanel.setVisible(false);
 
@@ -267,10 +285,15 @@ public class Vue extends JFrame {
 		jeuPanel.setVisible(true);
 	}
 
-	//
+	/**
+	 * Calculs des déplacements du lapins
+	 * @param x
+	 * @param y
+	 * @param indice
+	 */
 	public void deplacementLapins(int x, int y, int indice) 
 	{
-		System.out.println("deplacementLapins()\n");
+		System.out.println("Vue - deplacementLapins()\n");
 		//labelTest.setBounds(50, 0, 100, 100);
 		//jeuPanel.add(labelTest);
 
@@ -549,7 +572,7 @@ public class Vue extends JFrame {
 				Image newimg = img_.getScaledInstance(base_x, base_y, java.awt.Image.SCALE_SMOOTH);  
 				ImageIcon newIcon = new ImageIcon(newimg);
 
-				//caseLabel.setIcon(newIcon);
+				//caseLabel.setIcon(newIcon); // test d'image
 
 				//caseLabel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 				jeuPanel.add(caseLabel);
@@ -558,9 +581,11 @@ public class Vue extends JFrame {
 			position_x = base_x;
 		}
 	}
-	
-	// Non fonctionnel
-	// Génération des résultats des lapins ( nombre de carottes mangées )
+
+	/** 
+	 * Génération des résultats des lapins ( nombre de carottes mangées )
+	 * Non fonctionnel
+	 */
 	void generationResultats() 
 	{
 		String[][] resLapins = null;
@@ -583,7 +608,7 @@ public class Vue extends JFrame {
 			resLapins[i][2] = String.valueOf(nbCarottesMangees[i]);
 		}
 
-		String[] entetes = { "Rang", "Nom lapin", "Score" };
+		String[] entetes = { "Rang", "Nom lapin", "nbCarotteMangee" };
 
 		JTable tableau = new JTable(resLapins, entetes);
 		//JTable test = new 
