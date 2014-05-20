@@ -15,7 +15,7 @@ public class ModeleDynamique extends AbstractTableModel {
 	private LapinService lapinService = LapinService.getInstance();
 
 	/** 
-	 * Constructeur
+	 * Constructeur pour le tableau d'affichage
 	 */
 	public ModeleDynamique() 
 	{

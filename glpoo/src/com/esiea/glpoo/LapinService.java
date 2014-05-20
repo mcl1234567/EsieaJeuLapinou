@@ -13,13 +13,13 @@ public class LapinService {
 	private static LapinService instance;	// Instance de la classe, pour le singleton.
 
 	/**
-	 * Constructeur privé.
+	 * Constructeur prive.
 	 */
 	private LapinService() 
 	{
 		//LOGGER.debug("Constructeur");
 
-		csvLapin = new EngineCsvLapinDao();
+		csvLapin = new AdvancedCsvLapinDao();
 	}
 
 	/** 
@@ -35,7 +35,7 @@ public class LapinService {
 	}
 	
 	/**
-	 * Permet de récupérer tous les lapins
+	 * Permet de recuperer tous les lapins
 	 * @param fileName
 	 * @return List<Lapin>
 	 */

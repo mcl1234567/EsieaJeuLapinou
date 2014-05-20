@@ -45,7 +45,7 @@ public class Vue extends JFrame {
 
 	//final JTable tableau;			// Tests statiques
 	/**
-	 *  Placement d'un chiffre avant pour pouvoir récupérer génériquement le nombre (1, 2, ..) et le type ( rocher, ..)
+	 *  Placement d'un chiffre avant pour pouvoir recuperer generiquement le nombre (1, 2, ..) et le type ( rocher, ..)
 	 */
 	public String[][] jardin = {{"1 carotte", "1 rocher", "1 lapin"}, {"1 lapin", "1 rocher", ""}, {"", "", "2 carottes"}};
 	public String[] nomLapins = {"Bunny1", "Bunny2"};
@@ -56,12 +56,11 @@ public class Vue extends JFrame {
 
 	public ArrayList<Integer> memorizedSequences;
 
-	// pas utilisé
-	public ArrayList<JLabel> labels;
-	public JLabel labelTest; // test
+	public ArrayList<JLabel> labels;		// pas utilise
+	public JLabel labelTest; 				// test - 	pas utilise
 
 	/**
-	 * Constructeur des différents éléments graphiques
+	 * Constructeur des differents elements graphiques
 	 */
 	public Vue() 
 	{
@@ -146,7 +145,7 @@ public class Vue extends JFrame {
 	}
 
 	/**
-	 *  Permet de créer une légende en ligne et colonne
+	 *  Permet de creer une legende en ligne et colonne
 	 * @param nbColonnes
 	 * @param nbLignes
 	 * @return String[]
@@ -184,7 +183,7 @@ public class Vue extends JFrame {
 	}
 
 	/**
-	 * Génération du terrain de jeu
+	 * Generation du terrain de jeu
 	 * @param x
 	 * @param y
 	 * @param indice
@@ -286,7 +285,7 @@ public class Vue extends JFrame {
 	}
 
 	/**
-	 * Calculs des déplacements du lapins
+	 * Calculs des deplacements du lapins
 	 * @param x
 	 * @param y
 	 * @param indice
@@ -566,7 +565,9 @@ public class Vue extends JFrame {
 					}
 				}
 
-				// Intégration de l'image et création du label
+				/**
+				 *  Integration de l'image et creation du label
+				 */
 				ImageIcon imgThisImg = new ImageIcon(URL_IMAGE);
 				Image img_ = imgThisImg.getImage();  
 				Image newimg = img_.getScaledInstance(base_x, base_y, java.awt.Image.SCALE_SMOOTH);  
@@ -583,7 +584,7 @@ public class Vue extends JFrame {
 	}
 
 	/** 
-	 * Génération des résultats des lapins ( nombre de carottes mangées )
+	 * Generation des resultats des lapins ( nombre de carottes mangees )
 	 * Non fonctionnel
 	 */
 	void generationResultats() 

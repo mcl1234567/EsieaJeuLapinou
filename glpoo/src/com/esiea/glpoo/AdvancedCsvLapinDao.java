@@ -13,6 +13,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class AdvancedCsvLapinDao implements CsvLapinDao {
+	/**
+	 * Attributs
+	 */
     private static final Logger LOGGER = Logger.getLogger(AdvancedCsvLapinDao.class);
     private File file;
     private List<Lapin> lapins;
@@ -22,7 +25,7 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
     protected CsvLapinDao dao;
 
     /**
-     * Permet de sélectionner un fichier CSV
+     * Permet de selectionner un fichier CSV
      */
     @Override
     public void init(File file) 
@@ -37,7 +40,7 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
     }
 
     /**
-     * Permet de filtrer les caractères dans chaque ligne
+     * Permet de filtrer les caracteres dans chaque ligne
      * @return List<String>
      * @throws Exception
      */
@@ -141,14 +144,19 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
             }
 
         } catch (Exception e) {
-            LOGGER.error("Une erreur s'est produite...", e);
+            //LOGGER.error("Une erreur s'est produite...", e);
+        	System.err.println("Une erreur s'est produite...");
         }
     }
 
+    /**
+     * Permet de recuperer tous les lapins
+     */
     @Override
     public List<Lapin> findAllLapins() 
     {
-        LOGGER.debug("AdvancedCsvLapinDao - findAllLapins");
+        //LOGGER.debug("findAllLapins");
+        System.out.println("AdvancedCsvLapinDao - findAllLapins");
 
         if (lapins == null) 
         	throw new IllegalStateException("La liste n a pas encore ete initialisee...");
@@ -156,8 +164,14 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
         return lapins;
     }
 
+    /**
+     * Getter
+     */
     public File getFile() { return file; }
 
+    /**
+     * Permet de recuperer un lapin avec son nom
+     */
     @Override
     public Lapin findLapinByNom(final String nom) 
     {
