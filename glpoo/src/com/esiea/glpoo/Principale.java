@@ -12,6 +12,7 @@ public class Principale {
 		//LOGGER.debug("Main : Debut");
 
 		System.out.println("Loading..");
+		System.out.println("Loading1..");
 		Vue jf = new Vue();
 		jf.setVisible(true);
 
