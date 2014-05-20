@@ -44,37 +44,4 @@ public class ModeleDynamique extends AbstractTableModel {
 		}
 	}
 
-	@Override
-	public Class<?> getColumnClass(int columnIndex) 
-	{
-		switch (columnIndex) {
-			case 0:
-			case 1: return String.class;
-				// case 4:
-				// return List.class;
-				//
-				// case 5:
-				// return Double.class;
-			default: return Object.class;
-		}
-	}
-
-	public void ajouterLapin(final Lapin lapin) 
-	{
-		//LOGGER.debug("ajouterLapin");
-
-		lapins.add(lapin);
-
-		final int position = lapins.size() - 1;
-		fireTableRowsInserted(position, position);
-	}
-
-	public void supprimerLapin(final int rowIndex) 
-	{
-		//LOGGER.debug("supprimerLapin");
-
-		lapins.remove(rowIndex);
-		fireTableRowsDeleted(rowIndex, rowIndex);
-	}
-
 }

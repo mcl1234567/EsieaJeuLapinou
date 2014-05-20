@@ -18,8 +18,9 @@ public class LapinService {
 	private LapinService() 
 	{
 		//LOGGER.debug("Constructeur");
+		System.out.println("LapinService - constr.");
 
-		csvLapin = new EngineCsvLapinDao();
+		csvLapin = new AdvancedCsvLapinDao();
 	}
 
 	/**

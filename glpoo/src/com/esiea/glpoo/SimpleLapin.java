@@ -6,10 +6,8 @@ import fr.ybonnel.csvengine.annotation.CsvColumn;
 import fr.ybonnel.csvengine.annotation.CsvFile;
 
 // Represente un lapin standard.
-@CsvFile(separator = " ")
 public class SimpleLapin implements Lapin {
 
-	// serial Version UID
 	private static final long serialVersionUID = -1225454238084424608L;
 
 	//private String nbCarottesMangees;
@@ -38,6 +36,7 @@ public class SimpleLapin implements Lapin {
 		for (String couleur : couleurs) {
 			couleurList.add(couleur);
 		}
+
 		return couleurList;
 	}
 
@@ -52,7 +51,7 @@ public class SimpleLapin implements Lapin {
 	public String getPosition() { return this.position; }
 	public int getScore() { return this.score; }
 
-	public void setNom(String nom) { this.nom = nom;  System.out.println("ezfvd: " + nom);}
+	public void setNom(String nom) { this.nom = nom; }
 	public void setPosition(String position) { this.position = position; }
 	public void setOrientation(String orientation) { this.orientation = orientation; }
 	public void setSequences(String sequences) { this.sequences = sequences; }

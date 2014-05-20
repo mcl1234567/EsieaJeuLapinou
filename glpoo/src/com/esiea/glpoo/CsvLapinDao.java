@@ -19,10 +19,4 @@ public interface CsvLapinDao extends LapinDao {
 	 * @return 
 	 */
 	public File getFile();
-
-	/** 
-	 * Gets les entetes des colonnes. 
-	 * @return 	 
-	 */
-	public List<String> getEntetes();
 }

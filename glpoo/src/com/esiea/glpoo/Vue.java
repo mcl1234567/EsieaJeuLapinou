@@ -6,7 +6,10 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -64,6 +67,7 @@ public class Vue extends JFrame {
 	{
 		super();
 		//LOGGER.debug("Vue constructeur");
+		System.out.println("Vue constructeur");
 		
 		labels = new ArrayList<JLabel>();
 		memorizedSequences = new ArrayList<Integer>();
@@ -161,7 +165,7 @@ public class Vue extends JFrame {
 	// Permet de faire des tests de la matrice jardin contenant tous les éléments (affichage console)
 	public void launchTest() 
 	{
-		System.out.println("Tests calculs\n");
+		System.out.println("Vue - launchTest() Tests calculs\n");
 		for (int i = 0; i < jardin.length; i++) {
 			for (int j = 0; j < jardin[i].length; j++) {
 				System.out.println("( " + String.valueOf(i) + " - " + String.valueOf(j) + " ) : " + jardin[i][j]);				
@@ -173,7 +177,7 @@ public class Vue extends JFrame {
 	// Génération du terrain de jeu
 	public void generationTerrain(int x, int y, int indice) 
 	{
-		System.out.println("generationTerrain()\n");
+		System.out.println("Vue - generationTerrain()\n");
 		jeuPanel.removeAll();
 		jeuPanel.setVisible(false);
 
@@ -270,7 +274,7 @@ public class Vue extends JFrame {
 	//
 	public void deplacementLapins(int x, int y, int indice) 
 	{
-		System.out.println("deplacementLapins()\n");
+		System.out.println("Vue - deplacementLapins()\n");
 		//labelTest.setBounds(50, 0, 100, 100);
 		//jeuPanel.add(labelTest);
 

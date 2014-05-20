@@ -16,7 +16,7 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
     private static final Logger LOGGER = Logger.getLogger(AdvancedCsvLapinDao.class);
     private File file;
     private List<Lapin> lapins;
-    private final static String SEPARATOR = ";";
+    private final static String SEPARATOR = " ";
     private List<String> entetes;
     private Map<String, Lapin> lapinMapByNom;
     protected CsvLapinDao dao;
@@ -24,7 +24,8 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
     @Override
     public void init(File file) 
     {
-        LOGGER.debug("init");
+        //LOGGER.debug("init");
+        System.out.println("AdvancedCsvLapinDao - init");
 
         this.file = file;
 
@@ -34,7 +35,8 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
 
     private List<String> getLignesFromFile() throws Exception 
 	{
-        LOGGER.debug("getLignesFromFile");
+        //LOGGER.debug("getLignesFromFile");
+        System.out.println("AdvancedCsvLapinDao - getLignesFromFile");
 
         final List<String> lignes = new ArrayList<String>();
 
@@ -69,35 +71,20 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
 	private Lapin transformLigneToLapin(final String ligne) throws Exception 
 	{
        final SimpleLapin lapin = new SimpleLapin();
-       final String separator = ";";
+       final String separator = " ";
 
        final String[] values = ligne.split(separator);
 
        System.out.println("ligne : " + ligne);
 
-       // init noms
-       lapin.setNom(values[0]);       
-       //lapin.setNomComplet(values[1]);
-
-       // init sexe
-       final String tempSexe = values[2];
-       //final Sexe sexe = Sexe.valueOfByCode(new Integer(tempSexe));
-       //chien.setSexe(sexe);
-
-       // init race
-       final String tempRace = values[3];
-       //final RaceDeChien race = RaceDeChien.valueOfByCode(tempRace);
-       //chien.setRace(race);
-
-       // init couleur
-       final ArrayList<String> couleursList = new ArrayList<String>();
-       final String[] couleurs = values[4].split(",");
-       for (String couleur : couleurs) couleursList.add(couleur);
-       //chien.setCouleurs(couleursList);
-
-       // init poids
-       Double poids = Double.parseDouble(values[5].replace(',', '.'));
-       //chien.setPoids(poids);
+       // init nom
+       lapin.setPosition(values[1]);
+       // init orientation
+       lapin.setOrientation(values[2]);
+       // init sequences (actions)
+       lapin.setSequences(values[3]);
+       // init nom
+       lapin.setNom(values[4]);
 
        return lapin;
     }
@@ -107,7 +94,8 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
      */
     private void reloadLapins() 
     {
-        LOGGER.debug("findAllLapins");
+        //LOGGER.debug("");
+    	System.out.println("AdvancedCsvLapinDao - reload()");
 
         if (file == null) 
             throw new IllegalStateException("Le fichier est nul...");
@@ -115,12 +103,6 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
         try {
         	// Recuperation de chaque ligne
             final List<String> lignes = getLignesFromFile();
-
-            final String ligneEntete = lignes.remove(0);
-            LOGGER.debug("Entetes : " + ligneEntete);
-
-            // Recuperation des entetes
-            transformEntetes(ligneEntete);
 
             lapins = new ArrayList<Lapin>(lignes.size());
             lapinMapByNom = new HashMap<String, Lapin>(lignes.size());
@@ -138,7 +120,8 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
     @Override
     public List<Lapin> findAllLapins() 
     {
-        LOGGER.debug("findAllChiens");
+        //LOGGER.debug("findAllLapins");
+    	System.out.println("AdvancedCsvLapinDao - findAllLapins");
 
         if (lapins == null) 
         	throw new IllegalStateException("La liste n a pas encore ete initialisee...");
@@ -147,22 +130,6 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
     }
 
     public File getFile() { return file; }
-
-    private void transformEntetes(final String ligneEntete) 
-    {
-        LOGGER.debug("transformEntetes");
-
-        final String[] tabEntetes = ligneEntete.split(SEPARATOR);
-
-        entetes = new ArrayList<String>(tabEntetes.length);
-
-        for (String entete : tabEntetes) {
-            entetes.add(entete);
-        }
-    }
-
-    @Override
-    public List<String> getEntetes() { return entetes; }
 
     @Override
     public Lapin findLapinByNom(final String nom) 
@@ -179,55 +146,6 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
             }
         }
 
-        // Si pas trouve...
         return null;
-    }
-
-    /**
-     * Teste la recherche d'un lapin.
-     * PARAM nom : Lassie <br/>
-     * RESULT poids : 32.3
-     */
-    @Test
-    public void testRechercheLassie() 
-    {
-        LOGGER.debug("testRechercheLassie... Debut");
-
-        // Arrange
-        final String nom = "Lassie";
-        final Double poidsAttendu = 32.3;
-
-        // Act
-        final Lapin lapin = dao.findLapinByNom(nom);
-
-        // Assert
-        Assert.assertNotNull(lapin);
-        Assert.assertEquals(nom, lapin.getNom());
-        //Assert.assertEquals(poidsAttendu, lapin.getPoids());
-
-        LOGGER.debug("testRechercheLassie... Fin");
-    }
-
-    /**
-     * Teste la recherche d un chien qui n est pas dans la liste.
-     * 
-     * PARAM nom : Idefix <br/>
-     * RESULT null
-     */
-    @Test
-    public void testRechercheIdefix() 
-    {
-        LOGGER.debug("testRechercheIdefix... Debut");
-
-        // Arrange
-        final String nom = "Idefix";
-
-        // Act
-        final Lapin lapin = dao.findLapinByNom(nom);
-
-        // Assert
-        Assert.assertNull(lapin);
-
-        LOGGER.debug("testRechercheIdefix... Fin");
     }
 }
