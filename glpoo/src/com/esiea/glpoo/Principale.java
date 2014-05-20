@@ -21,6 +21,7 @@ public class Principale {
 		// Joue une partie et affiche le nouveau terrain
 		jf.calculate();
 
+		System.err.println("egrfvb");
 		System.out.println("FIN");
 		//LOGGER.debug("Main : FIN");
 	}
