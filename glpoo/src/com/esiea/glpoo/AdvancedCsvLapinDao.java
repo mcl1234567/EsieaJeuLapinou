@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.SystemUtils;
 import org.apache.log4j.Logger;
 
 public class AdvancedCsvLapinDao implements CsvLapinDao {
@@ -74,8 +75,9 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
 	 */
 	private Lapin transformLigneToLapin(final String ligne) throws Exception 
 	{
-       final SimpleLapin lapin = new SimpleLapin();
-       final String separator = SEPARATOR;
+		System.out.println("AdvancedCsvLapinDao - transformLigneToLapin");
+		final SimpleLapin lapin = new SimpleLapin();
+		final String separator = SEPARATOR;
 
        final String[] values = ligne.split(separator);
 
@@ -95,7 +97,7 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
     private void reloadLapins() 
     {
         //LOGGER.debug("");
-    	if(a) System.out.println("AdvancedCsvLapinDao - reload()");
+    	System.out.println("AdvancedCsvLapinDao - reload()");
 
         if (file == null) 
             throw new IllegalStateException("Le fichier est nul...");
@@ -103,15 +105,18 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
         try {
         	// Recuperation de chaque ligne
             final List<String> lignes = getLignesFromFile();
+            System.out.println("test99 : "+ lignes.get(0));
 
             lapins = new ArrayList<Lapin>(lignes.size());
             lapinMapByNom = new HashMap<String, Lapin>(lignes.size());
         	// Recuperation des lapins :
             for (String ligne : lignes) {
                 final Lapin lapin = transformLigneToLapin(ligne);
+            	System.out.println(lapin.getNom());
                 lapins.add(lapin);
             }
-
+            System.out.println("lapin : " + lapins.get(0).getNom());
+            System.out.println("lapin : " + lapins.get(1).getNom());
         } catch (Exception e) {
             LOGGER.error("Une erreur s'est produite...", e);
         }

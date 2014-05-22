@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  *  Cette interface représente un lapin.
  */
-public interface Lapin extends Serializable {
+public interface Lapin {
 	// Note : Les methodes d'une interface sont automatiquement "public".
 
 	String getNom();

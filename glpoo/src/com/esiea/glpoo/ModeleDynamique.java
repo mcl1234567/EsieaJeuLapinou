@@ -29,18 +29,18 @@ public class ModeleDynamique extends AbstractTableModel {
 	public ModeleDynamique() 
 	{
 		super();
-		
+
 		entetes = new String[] { "Nom", "Position", "Orientation", "Sequences", "Score" };
 	}
 
 	public void init() 
-	{		
+	{
 		// Entêtes du tableau d'affichage des résultats
 		entetes = new String[] { "Nom", "Position", "Orientation", "Sequences", "Score" };
 		lapins = lapinService.findAllLapins(LAPINS_FILE_NAME);
 
 		for (int i = 0; i < lapins.size(); i++) {
-			arrayLapins.add(lapins.get(i));
+			//arrayLapins.add(lapins.get(i));
 		}
 
 		// init Jardin

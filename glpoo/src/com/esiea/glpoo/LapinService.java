@@ -21,8 +21,6 @@ public class LapinService {
 		System.out.println("LapinService - Constructeur");
 
 		csvLapin = new AdvancedLapinCsvDao();
-
-		//csvLapin = new AdvancedCsvLapinDao();
 	}
 
 	/** 
@@ -44,6 +42,7 @@ public class LapinService {
 	public List<Lapin> findAllLapins(final String fileName) 
 	{
 		System.out.println("LapinService - findAllLapins");
+
 		File file = new File(fileName);
 		csvLapin.initLapin(file);
 		return csvLapin.findAllLapins();
