@@ -21,6 +21,8 @@ public class LapinService {
 		System.out.println("LapinService - Constructeur");
 
 		csvLapin = new AdvancedLapinCsvDao();
+
+		//csvLapin = new AdvancedCsvLapinDao();
 	}
 
 	/** 

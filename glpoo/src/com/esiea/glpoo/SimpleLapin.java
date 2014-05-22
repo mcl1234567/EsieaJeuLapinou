@@ -1,5 +1,6 @@
 package com.esiea.glpoo;
 
+import com.esiea.glpoo.Lapin;
 
 /** 
  * Represente un lapin standard.
@@ -41,20 +42,6 @@ public class SimpleLapin implements Lapin {
 		this.position = _position;
 		this.sequences = _sequences;
 	}
-
-	/** 
-	 * Permet de convertir un String[] en List<String> - non utilisé
-	 * @param couleurs
-	 * @return List<String>
-	 *
-	private static List<String> tabToList(String[] couleurs) 
-	{
-		List<String> couleurList = new ArrayList<String>();
-		for (String couleur : couleurs) {
-			couleurList.add(couleur);
-		}
-		return couleurList;
-	}*/
 
 	/** 
 	 * Lors d'un affichage sur un objet, celui-ci retourne la chaine specifee

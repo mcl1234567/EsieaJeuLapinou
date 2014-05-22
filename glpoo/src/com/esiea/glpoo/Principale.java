@@ -28,6 +28,7 @@ public class Principale {
 	public static void main(String[] args) 
 	{
 		//LOGGER.debug("Main : Debut");
+
 		// columns : y ; rows : x
 		int x = 3, y = 3;
 
@@ -43,7 +44,7 @@ public class Principale {
 
 		String type = "";
 		// Récupération du type si non vide
-		
+
 		// Analyse du terrain
 		// Lignes
 		for (int i = 0; i < y; i++) {
@@ -92,8 +93,6 @@ public class Principale {
 
 		// Après la fin d'une partie : accès disponible aux résultats des lapins
 		jf.finDePartie();
-
-		//LOGGER.debug("Main : FIN");
 	}
 
 	/**
@@ -105,4 +104,5 @@ public class Principale {
 	public static ModeleDynamique getModeleD() { return modele; }
 	public static int getScaleVitesseJeu() { return scalevitesseJeu; }
 	public static int getVitesseJeu() { return vitesseJeu; }
+
 }

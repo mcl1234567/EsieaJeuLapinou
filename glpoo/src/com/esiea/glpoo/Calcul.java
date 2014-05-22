@@ -1,6 +1,5 @@
 package com.esiea.glpoo;
 
-
 public class Calcul  {
 	private boolean a;
 	private boolean t;

@@ -1,6 +1,8 @@
 package com.esiea.glpoo;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -18,6 +20,7 @@ public class ModeleDynamique extends AbstractTableModel {
 	final private static String JARDIN_FILE_NAME = "resources/jardin-1.csv";
 	private String[] entetes;
 	private List<Lapin> lapins;
+	private ArrayList<Lapin> arrayLapins;
 	private Jardin jardin;
 
 	/** 
@@ -35,7 +38,11 @@ public class ModeleDynamique extends AbstractTableModel {
 		// Entêtes du tableau d'affichage des résultats
 		entetes = new String[] { "Nom", "Position", "Orientation", "Sequences", "Score" };
 		lapins = lapinService.findAllLapins(LAPINS_FILE_NAME);
-		
+
+		for (int i = 0; i < lapins.size(); i++) {
+			arrayLapins.add(lapins.get(i));
+		}
+
 		// init Jardin
 		jardin = jardinService.findAllJardin(JARDIN_FILE_NAME);
 	}
@@ -105,6 +112,8 @@ public class ModeleDynamique extends AbstractTableModel {
 		}
 	}
 
+	//public List<Lapin> getLapins() { return this.lapins; }
 	public List<Lapin> getLapins() { return this.lapins; }
 	public Jardin getJardin() { return this.jardin; }
+	public ArrayList<Lapin> getArrayLapins() { return this.arrayLapins; }
 }

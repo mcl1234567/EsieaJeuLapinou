@@ -70,6 +70,7 @@ public class Vue extends JFrame {
 	public Vue() 
 	{
 		super();
+
 		//LOGGER.debug("Vue constructeur"); // A modifier - intégrer les LOGGER..
 
 		// Test
@@ -83,6 +84,9 @@ public class Vue extends JFrame {
 	
 		// Récupération du csv et ajout des lapins
 		//modele.init();					// copied
+
+		//LOGGER.debug("Vue constructeur");
+		if(a) System.out.println("Vue - Constructeur");
 
 		labels = new ArrayList<JLabel>();
 
@@ -152,6 +156,7 @@ public class Vue extends JFrame {
 	{
 		if(a) System.out.println("Vue - launchTests");
 
+		if(t) System.out.println("Vue - launchTest() Tests calculs\n");
 		for (int i = 0; i < jardin.length; i++) {
 			for (int j = 0; j < jardin[i].length; j++) {
 				System.out.println("( " + String.valueOf(i) + " - " + String.valueOf(j) + " ) : " + jardin[i][j]);				
@@ -159,7 +164,7 @@ public class Vue extends JFrame {
 			System.out.println();
 		}
 	}
-	
+
 	/*public void testImage() {
 		// Create an ARGB BufferedImage
 		File file = new File(URL_IMAGE);
@@ -188,6 +193,8 @@ public class Vue extends JFrame {
 	public void generationTerrain(int x, int y) 
 	{
 		if(a) System.out.println("Vue - generationTerrain()");
+
+		if(t) System.out.println("Vue - generationTerrain()\n");
 
 		jeuPanel.removeAll();
 		jeuPanel.setVisible(false);
@@ -326,7 +333,6 @@ public class Vue extends JFrame {
 	public void ajoutImageToLabel(String url, JLabel label, int decalage) 
 	{
 		if(a) System.out.println("Vue - ajoutImageToLabel()");
-		if(t) System.out.println(url);
 
 		labels.remove(label);
 		// Intégration de l'image et création du label
@@ -339,7 +345,7 @@ public class Vue extends JFrame {
 		labels.add(label);
 	}
 
-/** emplacement de deplacementsLapins() **/
+	/** emplacement de deplacementsLapins() **/
 
 	/**
 	 * Generation des resultats des lapins ( nombre de carottes mangees )
@@ -353,7 +359,7 @@ public class Vue extends JFrame {
 
 		// Attribution
 		for (int i = 0; i < modele.getLapins().size(); i++) {
-			resLapins[i][0] = String.valueOf(i+1);										// rang
+			resLapins[i][0] = String.valueOf(i+1);											// Rang
 			resLapins[i][1] = modele.getLapins().get(i).getNom();							// Nom
 			resLapins[i][2] = String.valueOf(modele.getLapins().get(i).getScore());			// Score
 		}
@@ -385,7 +391,6 @@ public class Vue extends JFrame {
 		} else if (this.scalevitesseJeu > 0) {
 			this.vitesseJeu = (_TEMPS_ / this.scalevitesseJeu);
 		}
-		//System.out.println("Vitesse : " + String.valueOf(this.vitesseJeu));
 	}
 
 	/**
@@ -407,7 +412,6 @@ public class Vue extends JFrame {
 		} else if (this.scalevitesseJeu > 0) {
 			this.vitesseJeu = (_TEMPS_ / this.scalevitesseJeu);
 		}
-		//System.out.println("Vitesse : " + String.valueOf(this.vitesseJeu));
 	}
 
 }

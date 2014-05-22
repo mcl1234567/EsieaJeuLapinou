@@ -14,11 +14,11 @@ public interface CsvLapinDao extends LapinDao {
 	 */
 	void initLapin(File file);
 
-	/** 
+	/**
 	 * Gets the CSV file used.
 	 * @return 
 	 */
 	File getFile();
 
-	List<Lapin> findAllLapins();	
+	List<Lapin> findAllLapins();
 }

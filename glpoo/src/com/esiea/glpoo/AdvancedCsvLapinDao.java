@@ -8,35 +8,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Utilisation du pattern DAO
- */
-public class AdvancedLapinCsvDao implements CsvLapinDao {
-	/**
-	 * Attributs
-	 */
-    //private static final Logger LOGGER = Logger.getLogger(AdvancedCsvLapinDao.class);
+import org.apache.log4j.Logger;
+
+public class AdvancedCsvLapinDao implements CsvLapinDao {
+    private static final Logger LOGGER = Logger.getLogger(AdvancedCsvLapinDao.class);
     private File file;
     private List<Lapin> lapins;
     private final static String SEPARATOR = " ";
     private List<String> entetes;
     private Map<String, Lapin> lapinMapByNom;
-    private Map<String, Jardin> jardinMapByNom;
     protected CsvLapinDao dao;
     private boolean a;
     private boolean t;
 
-    /**
-     * Permet de selectionner un fichier CSV
-     */
     @Override
     public void initLapin(File file) 
     {
         //LOGGER.debug("init");
-    	if(a) System.out.println("AdvancedLapinCsvDao - init");
-
-    	a = Principale.getA();
-    	t = Principale.getT();
+        System.out.println("AdvancedCsvLapinDao - init");
 
         this.file = file;
 
@@ -44,32 +33,29 @@ public class AdvancedLapinCsvDao implements CsvLapinDao {
         reloadLapins();
     }
 
-    /**
-     * Permet de filtrer les caracteres dans chaque ligne
-     * @return List<String>
-     * @throws Exception
-     */
     private List<String> getLignesFromFile() throws Exception 
 	{
         //LOGGER.debug("getLignesFromFile");
-    	if(a) System.out.println("AdvancedLapinCsvDao - getLignesFromFile");
+        if(a) System.out.println("AdvancedCsvLapinDao - getLignesFromFile");
 
         final List<String> lignes = new ArrayList<String>();
 
         final FileReader fr = new FileReader(file);
         final BufferedReader br = new BufferedReader(fr);
 
-        // Recuperation et filtrage des lignes vides ou commentaires
+        // Recuperation et filtrage des lignes vides ou commentaires :
         for (String ligne = br.readLine(); ligne != null; ligne = br.readLine()) {
 
         	// Suppression des espaces en trop
             ligne = ligne.trim();
 
             // Filtre des lignes vides
-            if(ligne.isEmpty()) continue;
+            if(ligne.isEmpty()) 
+                continue;            
 
             // Filtre des lignes de commentaire
-            if(ligne.startsWith("#")) continue;
+            if(ligne.startsWith("#")) 
+                continue;
 
             lignes.add(ligne);
         }
@@ -81,7 +67,7 @@ public class AdvancedLapinCsvDao implements CsvLapinDao {
     }
 
 	/**
-	 * Analyse de chaque ligne
+	 *  Analyse de chaque ligne
 	 * @param ligne
 	 * @return Lapin
 	 * @throws Exception
@@ -89,15 +75,16 @@ public class AdvancedLapinCsvDao implements CsvLapinDao {
 	private Lapin transformLigneToLapin(final String ligne) throws Exception 
 	{
        final SimpleLapin lapin = new SimpleLapin();
-       final String[] values = ligne.split(SEPARATOR);
+       final String separator = SEPARATOR;
 
-       /**
-        * Ajout des valeurs à l'instance lapin
-        */
-       lapin.setPosition(values[1]);
-       lapin.setOrientation(values[2]);
-       lapin.setSequences(values[3]);
-       lapin.setNom(values[4]);
+       final String[] values = ligne.split(separator);
+
+       System.out.println("ligne : " + ligne);
+
+       lapin.setPosition(values[1]);			// init position
+       lapin.setOrientation(values[2]);			// init orientation
+       lapin.setSequences(values[3]);		    // init sequences (actions)
+       lapin.setNom(values[4]);					// init nom
 
        return lapin;
     }
@@ -107,8 +94,8 @@ public class AdvancedLapinCsvDao implements CsvLapinDao {
      */
     private void reloadLapins() 
     {
-        //LOGGER.debug("reloadLapins");
-    	if(a) System.out.println("AdvancedLapinCsvDao - reloadLapins");
+        //LOGGER.debug("");
+    	if(a) System.out.println("AdvancedCsvLapinDao - reload()");
 
         if (file == null) 
             throw new IllegalStateException("Le fichier est nul...");
@@ -118,36 +105,32 @@ public class AdvancedLapinCsvDao implements CsvLapinDao {
             final List<String> lignes = getLignesFromFile();
 
             lapins = new ArrayList<Lapin>(lignes.size());
-            setLapinMapByNom(new HashMap<String, Lapin>(lignes.size()));
-        	// Recuperation des lapins
+            lapinMapByNom = new HashMap<String, Lapin>(lignes.size());
+        	// Recuperation des lapins :
             for (String ligne : lignes) {
                 final Lapin lapin = transformLigneToLapin(ligne);
                 lapins.add(lapin);
             }
+
         } catch (Exception e) {
-            //LOGGER.error("Une erreur s'est produite...", e);
-        	System.err.println("Une erreur s'est produite...\n");
+            LOGGER.error("Une erreur s'est produite...", e);
         }
     }
 
-    /**
-     * Permet de recuperer tous les lapins
-     */
     @Override
     public List<Lapin> findAllLapins() 
     {
         //LOGGER.debug("findAllLapins");
-        if(a) System.out.println("AdvancedLapinCsvDao - findAllLapins\n");
+    	if(a) System.out.println("AdvancedCsvLapinDao - findAllLapins");
 
         if (lapins == null) 
-        	throw new IllegalStateException("La liste n a pas encore ete initialisee...\n");
+        	throw new IllegalStateException("La liste n a pas encore ete initialisee...");
 
         return lapins;
     }
 
-    /**
-     * Permet de recuperer un lapin avec son nom
-     */
+    public File getFile() { return file; }
+
     @Override
     public Lapin findLapinByNom(final String nom) 
     {
@@ -166,16 +149,4 @@ public class AdvancedLapinCsvDao implements CsvLapinDao {
         return null;
     }
 
-    /**
-     * Getters
-     */
-    public File getFile() { return file; }
-    public Map<String, Lapin> getLapinMapByNom() { return lapinMapByNom; }
-	public List<String> getEntetes() { return entetes; }
-
-	/**
-	 * Setters
-	 */
-	public void setLapinMapByNom(Map<String, Lapin> lapinMapByNom) { this.lapinMapByNom = lapinMapByNom; }
-	public void setEntetes(List<String> entetes) { this.entetes = entetes; }
 }
