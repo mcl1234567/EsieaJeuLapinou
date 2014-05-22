@@ -15,7 +15,7 @@ public class Principale {
 	static ModeleDynamique modele;
 	private static String[][] jardin = {{"1 carotte", "1 rocher", "1 lapin"}, {"1 lapin", "1 rocher", ""}, {"", "", "2 carottes"}};
 	private static boolean a = false;
-	private static boolean t = true;
+	private static boolean t = false;
 	// Calcul durée action
 	public static final int _TEMPS_ = 1000;
 	public static int scalevitesseJeu = 1;

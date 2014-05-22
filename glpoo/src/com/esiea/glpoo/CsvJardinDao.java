@@ -4,15 +4,15 @@ import java.io.File;
 import java.util.List;
 
 /**
- * DAO pour la gestion des lapins en CSV.
+ * DAO pour la gestion du jardin en CSV.
  */
-public interface CsvLapinDao extends LapinDao {
+public interface CsvJardinDao extends JardinDao {
 
 	/** 
 	 * Initialisation du DAO.
 	 * @param file 
 	 */
-	void initLapin(File file);
+	void initJardin(File file);
 
 	/** 
 	 * Gets the CSV file used.
@@ -20,5 +20,5 @@ public interface CsvLapinDao extends LapinDao {
 	 */
 	File getFile();
 
-	List<Lapin> findAllLapins();	
+	Jardin findAllJardin();
 }

@@ -4,7 +4,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 /**
- * Le modèle contient les objects du monde
+ * Le modèle contient les objets du jeu
  */
 
 public class ModeleDynamique extends AbstractTableModel {
@@ -12,10 +12,13 @@ public class ModeleDynamique extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	//private static final Logger LOGGER = Logger.getLogger(ModeleDynamique.class);
 
+	private LapinService lapinService = LapinService.getInstance();
+	private JardinService jardinService = JardinService.getInstance();
+	final private static String LAPINS_FILE_NAME = "resources/lapin-1.csv";
+	final private static String JARDIN_FILE_NAME = "resources/jardin-1.csv";
 	private String[] entetes;
 	private List<Lapin> lapins;
-	final private static String LAPINS_FILE_NAME = "resources/lapin-1.csv";
-	private LapinService lapinService = LapinService.getInstance();
+	private Jardin jardin;
 
 	/** 
 	 * Constructeur pour le tableau d'affichage
@@ -23,15 +26,18 @@ public class ModeleDynamique extends AbstractTableModel {
 	public ModeleDynamique() 
 	{
 		super();
-
+		
 		entetes = new String[] { "Nom", "Position", "Orientation", "Sequences", "Score" };
 	}
 
 	public void init() 
-	{
-		lapins = lapinService.findAllLapins(LAPINS_FILE_NAME);
+	{		
 		// Entêtes du tableau d'affichage des résultats
 		entetes = new String[] { "Nom", "Position", "Orientation", "Sequences", "Score" };
+		lapins = lapinService.findAllLapins(LAPINS_FILE_NAME);
+		
+		// init Jardin
+		jardin = jardinService.findAllJardin(JARDIN_FILE_NAME);
 	}
 
 	/**
@@ -100,4 +106,5 @@ public class ModeleDynamique extends AbstractTableModel {
 	}
 
 	public List<Lapin> getLapins() { return this.lapins; }
+	public Jardin getJardin() { return this.jardin; }
 }

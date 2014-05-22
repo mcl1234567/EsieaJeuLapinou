@@ -16,7 +16,7 @@ public class Calcul  {
 		t = Principale.getT();	// test
 		vitesseJeu = Principale.getVitesseJeu();
 	}
-	
+
 	/**
 	 * Calculs des deplacements du lapins
 	 * @param x
@@ -69,7 +69,6 @@ public class Calcul  {
 							//for (int l = 0; l<modele.getLapins().get(k).getSequences().length(); l++) {
 								// On s'en va, ce n'est plus intéressant ( un lapin est trop innocent pour en manger un autre )
 								//if (bunnysSpotted) break;
-								
 
 								// Pause d'une seconde ( vitesse variable )
 								if(t) System.out.println("pause");
@@ -94,6 +93,7 @@ public class Calcul  {
 												if(t) System.out.println(" -> lapin bloque (mur)");
 												break;
 											}
+											// La case contient quelque chose
 											if(jardin[decalage][j].length() > 1) {
 												String typeSuivant = jardin[decalage][j].substring(2, jardin[decalage][j].length());
 
@@ -135,9 +135,9 @@ public class Calcul  {
 												jardin[i][j] = "";
 												// Sauvegarde de la position du lapin
 												modele.getLapins().get(k).setPosition(String.valueOf(decalage+1) + "-" + String.valueOf(j+1));
-												
+
 												if(t) System.out.println(" " + modele.getLapins().get(k).getOrientation());
-												
+				
 												// Pause de 1 seconde ( vitesse variable )
 												if(t) System.out.println("pause");
 												try { Thread.sleep(vitesseJeu); }

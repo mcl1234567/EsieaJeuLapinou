@@ -18,8 +18,9 @@ public class LapinService {
 	private LapinService() 
 	{
 		//LOGGER.debug("Constructeur");
+		System.out.println("LapinService - Constructeur");
 
-		csvLapin = new AdvancedCsvLapinDao();
+		csvLapin = new AdvancedLapinCsvDao();
 	}
 
 	/** 
@@ -28,8 +29,7 @@ public class LapinService {
 	 */
 	public static synchronized LapinService getInstance() 
 	{
-		if (instance == null) 
-			instance = new LapinService();
+		if (instance == null) instance = new LapinService();
 
 		return instance;
 	}
@@ -41,8 +41,9 @@ public class LapinService {
 	 */
 	public List<Lapin> findAllLapins(final String fileName) 
 	{
-		final File file = new File(fileName);
-		csvLapin.init(file);
+		System.out.println("LapinService - findAllLapins");
+		File file = new File(fileName);
+		csvLapin.initLapin(file);
 		return csvLapin.findAllLapins();
 	}
 

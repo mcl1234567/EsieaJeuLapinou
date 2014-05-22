@@ -11,8 +11,7 @@ import java.util.Map;
 /**
  * Utilisation du pattern DAO
  */
-
-public class AdvancedCsvLapinDao implements CsvLapinDao {
+public class AdvancedLapinCsvDao implements CsvLapinDao {
 	/**
 	 * Attributs
 	 */
@@ -22,16 +21,17 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
     private final static String SEPARATOR = " ";
     private List<String> entetes;
     private Map<String, Lapin> lapinMapByNom;
+    private Map<String, Jardin> jardinMapByNom;
     protected CsvLapinDao dao;
 
     /**
      * Permet de selectionner un fichier CSV
      */
     @Override
-    public void init(File file) 
+    public void initLapin(File file) 
     {
         //LOGGER.debug("init");
-    	System.out.println("AdvancedCsvLapinDao - init");
+    	System.out.println("AdvancedLapinCsvDao - init");
 
         this.file = file;
 
@@ -47,7 +47,7 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
     private List<String> getLignesFromFile() throws Exception 
 	{
         //LOGGER.debug("getLignesFromFile");
-    	System.out.println("AdvancedCsvLapinDao - getLignesFromFile");
+    	System.out.println("AdvancedLapinCsvDao - getLignesFromFile");
 
         final List<String> lignes = new ArrayList<String>();
 
@@ -56,18 +56,15 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
 
         // Recuperation et filtrage des lignes vides ou commentaires
         for (String ligne = br.readLine(); ligne != null; ligne = br.readLine()) {
-            // Suppression des espaces en trop
+
+        	// Suppression des espaces en trop
             ligne = ligne.trim();
 
             // Filtre des lignes vides
-            if(ligne.isEmpty()) {
-                continue;
-            }
+            if(ligne.isEmpty()) continue;
 
             // Filtre des lignes de commentaire
-            if(ligne.startsWith("#")) {
-                continue;
-            }
+            if(ligne.startsWith("#")) continue;
 
             lignes.add(ligne);
         }
@@ -106,7 +103,7 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
     private void reloadLapins() 
     {
         //LOGGER.debug("reloadLapins");
-    	System.out.println("AdvancedCsvLapinDao - reloadLapins");
+    	System.out.println("AdvancedLapinCsvDao - reloadLapins");
 
         if (file == null) 
             throw new IllegalStateException("Le fichier est nul...");
@@ -135,7 +132,7 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
     public List<Lapin> findAllLapins() 
     {
         //LOGGER.debug("findAllLapins");
-        System.out.println("AdvancedCsvLapinDao - findAllLapins\n");
+        System.out.println("AdvancedLapinCsvDao - findAllLapins\n");
 
         if (lapins == null) 
         	throw new IllegalStateException("La liste n a pas encore ete initialisee...\n");
@@ -164,10 +161,16 @@ public class AdvancedCsvLapinDao implements CsvLapinDao {
         return null;
     }
 
+    /**
+     * Getters
+     */
     public File getFile() { return file; }
-	public Map<String, Lapin> getLapinMapByNom() { return lapinMapByNom; }
+    public Map<String, Lapin> getLapinMapByNom() { return lapinMapByNom; }
 	public List<String> getEntetes() { return entetes; }
 
+	/**
+	 * Setters
+	 */
 	public void setLapinMapByNom(Map<String, Lapin> lapinMapByNom) { this.lapinMapByNom = lapinMapByNom; }
 	public void setEntetes(List<String> entetes) { this.entetes = entetes; }
 }
