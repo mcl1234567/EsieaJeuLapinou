@@ -1,7 +1,6 @@
 package com.esiea.glpoo;
 
 import java.io.File;
-import java.util.List;
 
 /**
  * DAO pour la gestion des lapins en CSV.

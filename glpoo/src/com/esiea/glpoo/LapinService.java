@@ -3,12 +3,12 @@ package com.esiea.glpoo;
 import java.io.File;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
+/**
+ * Singleton
+ */
 public class LapinService {
 
-	private static final Logger LOGGER = Logger.getLogger(LapinService.class);
-
+	//private static final Logger LOGGER = Logger.getLogger(LapinService.class);
 	private CsvLapinDao csvLapin;
 	private static LapinService instance;	// Instance de la classe, pour le singleton.
 
@@ -24,7 +24,7 @@ public class LapinService {
 
 	/** 
 	 * Singleton classique, synchro, avec creation sur demande.
-	 * @return ?
+	 * @return LapinService
 	 */
 	public static synchronized LapinService getInstance() 
 	{
@@ -33,7 +33,7 @@ public class LapinService {
 
 		return instance;
 	}
-	
+
 	/**
 	 * Permet de recuperer tous les lapins
 	 * @param fileName
@@ -45,4 +45,5 @@ public class LapinService {
 		csvLapin.init(file);
 		return csvLapin.findAllLapins();
 	}
+
 }

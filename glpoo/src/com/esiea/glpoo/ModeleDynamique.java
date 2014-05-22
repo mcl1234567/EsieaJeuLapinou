@@ -2,12 +2,15 @@ package com.esiea.glpoo;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import org.apache.log4j.Logger;
+
+/**
+ * Le modèle contient les objects du monde
+ */
 
 public class ModeleDynamique extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOGGER = Logger.getLogger(ModeleDynamique.class);
+	//private static final Logger LOGGER = Logger.getLogger(ModeleDynamique.class);
 
 	private String[] entetes;
 	private List<Lapin> lapins;
@@ -21,9 +24,14 @@ public class ModeleDynamique extends AbstractTableModel {
 	{
 		super();
 
+		entetes = new String[] { "Nom", "Position", "Orientation", "Sequences", "Score" };
+	}
+
+	public void init() 
+	{
 		lapins = lapinService.findAllLapins(LAPINS_FILE_NAME);
-		// Entêtes du tableau d'affichage des réusltats
-		entetes = new String[] { "nom", "position", "orientation", "sequences", "score" };
+		// Entêtes du tableau d'affichage des résultats
+		entetes = new String[] { "Nom", "Position", "Orientation", "Sequences", "Score" };
 	}
 
 	/**
@@ -51,7 +59,7 @@ public class ModeleDynamique extends AbstractTableModel {
 		lapins.remove(rowIndex);
 		fireTableRowsDeleted(rowIndex, rowIndex);
 	}
-	
+
 	/**
 	 * Getters
 	 */
@@ -65,13 +73,13 @@ public class ModeleDynamique extends AbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) 
 	{
 		final Lapin lapin = lapins.get(rowIndex);
-
 		// Ordre : "Nom", orientation, sequences, positions
 		switch (columnIndex) {
 			case 0:	return lapin.getNom();
-			case 1:	return lapin.getOrientation();
-			case 2: return lapin.getSequences();
-			case 3: return lapin.getPosition();
+			case 1: return lapin.getPosition();
+			case 2:	return lapin.getOrientation();
+			case 3: return lapin.getSequences();			
+			case 4: return lapin.getScore();
 			default: throw new IllegalArgumentException("Le numero de colonne indique n'est pas valide.");
 		}
 	}
@@ -91,4 +99,5 @@ public class ModeleDynamique extends AbstractTableModel {
 		}
 	}
 
+	public List<Lapin> getLapins() { return this.lapins; }
 }

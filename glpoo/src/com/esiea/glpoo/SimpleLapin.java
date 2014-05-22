@@ -1,9 +1,5 @@
 package com.esiea.glpoo;
 
-import java.util.ArrayList;
-import java.util.List;
-import fr.ybonnel.csvengine.annotation.CsvColumn;
-import fr.ybonnel.csvengine.annotation.CsvFile;
 
 /** 
  * Represente un lapin standard.
@@ -11,17 +7,17 @@ import fr.ybonnel.csvengine.annotation.CsvFile;
 public class SimpleLapin implements Lapin {
 
 	/**
-	 *  serial Version UID
+	 *  Attributs
 	 */
 	private static final long serialVersionUID = -1225454238084424608L;
-
-	//private String nbCarottesMangees;
-	private int score;
-
 	private String position;
 	private String orientation;
 	private String sequences;
 	private String nom;
+	private int score;
+	private int indexSequenceInachieved;
+	private boolean sequenceInachieved;
+	private boolean _sequenceAchieved;
 
 	/** 
 	 * Constructeurs
@@ -30,7 +26,13 @@ public class SimpleLapin implements Lapin {
 	{ }
 
 	public SimpleLapin(final String nom) 
-	{ this.nom = nom; }
+	{ 
+		this.nom = nom;
+		this.score = 0;
+		this.indexSequenceInachieved = 0;
+		this.sequenceInachieved = false;
+		this._sequenceAchieved = false;
+	}
 
 	public SimpleLapin(String _nom, String _orientation, String _position, String _sequences) 
 	{
@@ -43,8 +45,8 @@ public class SimpleLapin implements Lapin {
 	/** 
 	 * Permet de convertir un String[] en List<String> - non utilisé
 	 * @param couleurs
-	 * @return
-	 */
+	 * @return List<String>
+	 *
 	private static List<String> tabToList(String[] couleurs) 
 	{
 		List<String> couleurList = new ArrayList<String>();
@@ -52,7 +54,7 @@ public class SimpleLapin implements Lapin {
 			couleurList.add(couleur);
 		}
 		return couleurList;
-	}
+	}*/
 
 	/** 
 	 * Lors d'un affichage sur un objet, celui-ci retourne la chaine specifee
@@ -70,15 +72,23 @@ public class SimpleLapin implements Lapin {
 	public String getSequences() { return this.sequences; }
 	public String getPosition() { return this.position; }
 	public int getScore() { return this.score; }
+	public int getIndexSequenceInachieved() { return this.indexSequenceInachieved; }
+	public boolean isSequenceFinished() { return this.sequenceInachieved; }
+	public boolean isSequenceAchieved() { return this._sequenceAchieved; }
 
 	/**
 	 * Setters
-	 * @param nom
 	 */
-	public void setNom(String nom) { this.nom = nom;  System.out.println("ezfvd: " + nom);}
-	public void setPosition(String position) { this.position = position; }
-	public void setOrientation(String orientation) { this.orientation = orientation; }
-	public void setSequences(String sequences) { this.sequences = sequences; }
+	public void setNom(String _nom) { this.nom = _nom; }
+	public void setPosition(String _position) { this.position = _position; }
+	public void setOrientation(String _orientation) { this.orientation = _orientation; }
+	public void setSequences(String _sequences) { this.sequences = _sequences; }
+	public void addCarottes() { this.score++; }
+	public void setSequenceInachieved(int index) 
+	{ 
+		this.indexSequenceInachieved = index;
+		this.sequenceInachieved = true;
+	}
+	public void sequenceAchieved() { this._sequenceAchieved = true; }
 
-	public void setScore(int score) { this.score = score; }
 }
