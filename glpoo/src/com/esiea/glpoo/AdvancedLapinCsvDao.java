@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 /**
  * Utilisation du pattern DAO
  */
@@ -15,7 +17,7 @@ public class AdvancedLapinCsvDao implements CsvLapinDao {
 	/**
 	 * Attributs
 	 */
-    //private static final Logger LOGGER = Logger.getLogger(AdvancedCsvLapinDao.class);
+    //private static final Logger LOGGER = Logger.getLogger(AdvancedLapinCsvDao.class);
     private File file;
     private List<Lapin> lapins;
     private final static String SEPARATOR = " ";
