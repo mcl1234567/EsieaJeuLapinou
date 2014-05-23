@@ -1,6 +1,7 @@
 package com.esiea.glpoo;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Singleton
@@ -38,10 +39,10 @@ public class JardinService {
 	 * @param fileName
 	 * @return List<String>
 	 */
-	public Jardin findAllJardin(String jardinFileName) 
+	public Jardin findAllJardin(String fileName, ArrayList<Lapin> lapins) 
 	{
-		File file = new File(jardinFileName);
-		csvJardin.initJardin(file);
+		File file = new File(fileName);
+		csvJardin.initJardin(file, lapins);
 		return csvJardin.findAllJardin();
 	}
 

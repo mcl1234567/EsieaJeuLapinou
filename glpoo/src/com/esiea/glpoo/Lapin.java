@@ -1,6 +1,5 @@
 package com.esiea.glpoo;
 
-import java.io.Serializable;
 
 /**
  *  Cette interface représente un lapin.

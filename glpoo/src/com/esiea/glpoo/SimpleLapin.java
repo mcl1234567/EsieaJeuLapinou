@@ -7,10 +7,6 @@ import com.esiea.glpoo.Lapin;
  */
 public class SimpleLapin implements Lapin {
 
-	/**
-	 *  Attributs
-	 */
-	private static final long serialVersionUID = -1225454238084424608L;
 	private String position;
 	private String orientation;
 	private String sequences;

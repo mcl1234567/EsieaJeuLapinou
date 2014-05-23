@@ -29,7 +29,7 @@ public class AdvancedJardinCsvDao implements CsvJardinDao {
      * Permet de selectionner un fichier CSV
      */
     @Override
-    public void initJardin(File file) 
+    public void initJardin(File file, ArrayList<Lapin> lapins) 
     {
         //LOGGER.debug("init");
     	if(a) System.out.println("AdvancedJardinCsvDao - init");
@@ -40,7 +40,7 @@ public class AdvancedJardinCsvDao implements CsvJardinDao {
         this.file = file;
 
         // On relance une lecture a chaque initialisation, ce qui permet de changer de fichier, ou de recharger ledit fichier.
-        reloadJardin();
+        reloadJardin(lapins);
     }
 
     /**
@@ -84,14 +84,13 @@ public class AdvancedJardinCsvDao implements CsvJardinDao {
 	 * @param ligne
 	 * @throws Exception
 	 */
-	private void transformLigneToJardin(final String ligne, Jardin jardin) throws Exception 
+	private void transformLigneToJardin(final String ligne, Jardin jardin, ArrayList<Lapin> lapins) throws Exception 
 	{
        final String[] values = ligne.split(SEPARATOR);
 
        /**
         * Ajout des valeurs à l'instance
         */
-       System.out.println("test2.1");
        char type = values[0].charAt(0);
        switch(type) {
        		case 'J': {
@@ -107,25 +106,18 @@ public class AdvancedJardinCsvDao implements CsvJardinDao {
        		} break;
        }
 
-       System.out.println("test2.2");
-
-       for (int i=0; i<modele.getArrayLapins().size(); i++) {
-    	   System.out.println("test2.2.1");
-    	   jardin.setLapin(modele.getArrayLapins().get(i));
-    	   System.out.println("test2.2.2");
+       for (int i=0; i<lapins.size(); i++) {
+    	   jardin.setLapin(lapins.get(i));
        }
-
-       System.out.println("test2.3");
     }
 
 	/**
      * Chargement des lapins via CSV
      */
-    private void reloadJardin() 
+    private void reloadJardin(ArrayList<Lapin> lapins) 
     {
         //LOGGER.debug("reloadJardin");
     	if(a) System.out.println("AdvancedJardinCsvDao - reloadJardin");
-        System.out.println("testestest1");
 
         if (file == null) 
             throw new IllegalStateException("Le fichier est nul...");
@@ -134,17 +126,12 @@ public class AdvancedJardinCsvDao implements CsvJardinDao {
         	// Recuperation de chaque ligne
             final List<String> lignes = getLignesFromFile();
             jardin = new Jardin();
-            
-
-            System.out.println("testestest2");
 
         	// Recuperation du jardin
             for (String ligne : lignes) {
-                transformLigneToJardin(ligne, jardin);
+                transformLigneToJardin(ligne, jardin, lapins);
             }
 
-            //if(jardin.isMatriceSet()) ;
-            System.out.println("testestest3");
         } catch (Exception e) {
             //LOGGER.error("Une erreur s'est produite...", e);
         	System.err.println("Une erreur s'est produite...\n");

@@ -23,16 +23,20 @@ public class ModeleDynamique extends AbstractTableModel {
 	private ArrayList<Lapin> arrayLapins;
 	private Jardin jardin;
 
-	/** 
+	/**
 	 * Constructeur pour le tableau d'affichage
 	 */
 	public ModeleDynamique() 
 	{
 		super();
+		arrayLapins = new ArrayList<Lapin>();
 
 		entetes = new String[] { "Nom", "Position", "Orientation", "Sequences", "Score" };
 	}
 
+	/**
+	 * Initialisation
+	 */
 	public void init() 
 	{
 		// Entêtes du tableau d'affichage des résultats
@@ -40,11 +44,11 @@ public class ModeleDynamique extends AbstractTableModel {
 		lapins = lapinService.findAllLapins(LAPINS_FILE_NAME);
 
 		for (int i = 0; i < lapins.size(); i++) {
-			//arrayLapins.add(lapins.get(i));
+			arrayLapins.add(lapins.get(i));
 		}
 
 		// init Jardin
-		jardin = jardinService.findAllJardin(JARDIN_FILE_NAME);
+		jardin = jardinService.findAllJardin(JARDIN_FILE_NAME, arrayLapins);
 	}
 
 	/**
