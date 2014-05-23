@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
+
 /**
  * Utilisation du pattern DAO
  */
@@ -84,7 +86,7 @@ public class AdvancedJardinCsvDao implements CsvJardinDao {
 	 * @param ligne
 	 * @throws Exception
 	 */
-	private void transformLigneToJardin(final String ligne, Jardin jardin, ArrayList<Lapin> lapins) throws Exception 
+	private void transformLigneToJardin(final String ligne, Jardin jardin) throws Exception 
 	{
        final String[] values = ligne.split(SEPARATOR);
 
@@ -105,10 +107,6 @@ public class AdvancedJardinCsvDao implements CsvJardinDao {
        			jardin.setPositionRocher(values[1]);
        		} break;
        }
-
-       for (int i=0; i<lapins.size(); i++) {
-    	   jardin.setLapin(lapins.get(i));
-       }
     }
 
 	/**
@@ -124,17 +122,30 @@ public class AdvancedJardinCsvDao implements CsvJardinDao {
 
         try {
         	// Recuperation de chaque ligne
-            final List<String> lignes = getLignesFromFile();
+        	final List<String> lignes = getLignesFromFile();
             jardin = new Jardin();
 
         	// Recuperation du jardin
             for (String ligne : lignes) {
-                transformLigneToJardin(ligne, jardin, lapins);
+                transformLigneToJardin(ligne, jardin);
             }
 
+            // Tous les objets lapins sont ajoutés dans le jardin
+            for (int i=0; i<lapins.size(); i++) {
+            	jardin.setLapin(lapins.get(i));
+            }
+
+            // Initialisation de la matrice 
+            jardin.initMatrice();
+
+            for (int i = 0; i < jardin.getMatrice().length; i++) {
+				for (int j = 0; j < jardin.getMatrice()[i].length; j++) {
+					System.out.println(jardin.getMatrice()[i][j]);
+				}
+			}    
         } catch (Exception e) {
             //LOGGER.error("Une erreur s'est produite...", e);
-        	System.err.println("Une erreur s'est produite...\n");
+        	System.err.println("Une erreur s'est produite...3\n");
         }
     }
 

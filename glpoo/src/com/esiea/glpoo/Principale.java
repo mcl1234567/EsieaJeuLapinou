@@ -13,7 +13,7 @@ public class Principale {
 	//private static final Logger LOGGER = Logger.getLogger(Principale.class);
 
 	static ModeleDynamique modele;
-	private static String[][] jardin = {{"1 carotte", "1 rocher", "1 lapin"}, {"1 lapin", "1 rocher", ""}, {"", "", "2 carottes"}};
+	//private static String[][] jardin = {{"1 carotte", "1 rocher", "1 lapin"}, {"1 lapin", "1 rocher", ""}, {"", "", "2 carottes"}};
 	private static boolean a = false;
 	private static boolean t = false;
 	// Calcul durée action
@@ -52,14 +52,15 @@ public class Principale {
 			for (int j = 0; j < x; j++) {
 				// Nombre carottes restantes dans cette case
 				int nbCarottes = 0;
-				if(jardin[i][j].length() > 1) type = jardin[i][j].substring(2, jardin[i][j].length());
-				
+				if(modele.getJardin().getMatrice()[i][j].length() > 1) 
+					type = modele.getJardin().getMatrice()[i][j].substring(2, modele.getJardin().getMatrice()[i][j].length());
+
 				// Lapin repéré dans le jardin
 				if(type.equalsIgnoreCase("lapin")) {
 					// Pour tous les lapins
 					for (int k = 0; k < modele.getLapins().size(); k++) {
 						int caseY = i + 1;		// lignes
-						int caseX = j + 1;		// colonnes						
+						int caseX = j + 1;		// colonnes
 
 						// Lapin position = jardin position actuelle
 						if(caseY == Integer.parseInt(modele.getLapins().get(k).getPosition().substring(0, 1)) 
@@ -73,15 +74,15 @@ public class Principale {
 							for (int l = 0; l<modele.getLapins().get(k).getSequences().length(); l++) {
 								// On s'en va, ce n'est plus intéressant ( un lapin est trop innocent pour en manger un autre )
 								if (bunnySpotted) break;
-
-								// Calculs
+	
+								// Calculs (c)
 								// indice_i, indice_j, length_x, length_y, ... type(: rocher, lapin), indice_k, indice_l
-								c.deplacementLapins(i, j, x, y, nbCarottes, modele, jardin, type, bunnySpotted, k, l);
+								c.deplacementLapins(i, j, x, y, nbCarottes, modele, modele.getJardin().getMatrice(), type, bunnySpotted, k, l);
 
 								// Regénération du terrain ( affichage IHM )
 								jf.generationTerrain(x, y);
 
-								// Lorsque toutes les actions sont finies, on envoie un signal de fin pour ce lapin
+								// Lorsque toutes les actions sont finies, on envoie un sinal de fin ( mise en pause du lapin ) 
 								if(l == modele.getLapins().get(k).getSequences().length()-1)
 									modele.getLapins().get(k).sequenceAchieved();
 							}
@@ -100,7 +101,7 @@ public class Principale {
 	 */
 	public static boolean getA() { return a; }
 	public static boolean getT() { return t; }
-	public static String[][] getJardin() { return jardin; }
+	public static String[][] getJardin() { return modele.getJardin().getMatrice(); }
 	public static ModeleDynamique getModeleD() { return modele; }
 	public static int getScaleVitesseJeu() { return scalevitesseJeu; }
 	public static int getVitesseJeu() { return vitesseJeu; }

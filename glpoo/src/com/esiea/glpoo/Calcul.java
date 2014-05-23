@@ -86,7 +86,7 @@ public class Calcul  {
 											if(t) System.out.print(" Nord ");
 											// Récupération du type si case pas vide
 											decalage = i - 1;
-											
+
 											// Le lapin est bloque par le mur
 											if(i == 0) {
 												if(t) System.out.println(" -> lapin bloque (mur)");
@@ -98,7 +98,7 @@ public class Calcul  {
 
 												// Inévitable.. le lapin mange la carotte..
 												if(typeSuivant.equalsIgnoreCase("carotte") || typeSuivant.equalsIgnoreCase("carottes")) {
-													if(t) System.out.print(" -> Carotte mangee et le lapin_"+String.valueOf(k) + " avance a la case");
+													if(t) System.out.print(" -> Carotte mangee et le lapin_" + String.valueOf(k) + " avance a la case");
 													nbCarottes = Integer.parseInt(jardin[i-1][j].substring(0, 1));
 													if(nbCarottes == 1) ; // Devient une case vide.. A CODER
 													// Réécriture du contenu du JLabel (avec carotte - 1) et chgmt de la position du lapin													

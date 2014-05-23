@@ -17,7 +17,7 @@ public class ModeleDynamique extends AbstractTableModel {
 	private LapinService lapinService = LapinService.getInstance();
 	private JardinService jardinService = JardinService.getInstance();
 	final private static String LAPINS_FILE_NAME = "resources/lapin-1.csv";
-	final private static String JARDIN_FILE_NAME = "resources/jardin-1.csv";
+	final private static String JARDIN_FILE_NAME = "resources/jardin-3.csv";
 	private String[] entetes;
 	private List<Lapin> lapins;
 	private ArrayList<Lapin> arrayLapins;
